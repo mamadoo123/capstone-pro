@@ -5,6 +5,7 @@ import {
     signInWithPopup,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
+    signOut,
 } from "firebase/auth"
 
 import {
@@ -43,6 +44,8 @@ const signInWithEmailAndPass = async (email, password) => {
     return await signInWithEmailAndPassword(auth, email, password);
 } 
 
+const signUserOut = async () => await signOut(auth);
+
 const db = getFirestore()
 
 const createUserDocFromAuth = async (userAuth, additionalInfo) => {
@@ -78,6 +81,7 @@ export default {
     auth,
     signInWithPrompt,
     signInWithEmailAndPass,
+    signUserOut,
     db,
     createUserDocFromAuth,
     createUserDocWithEmailAndPassword,
