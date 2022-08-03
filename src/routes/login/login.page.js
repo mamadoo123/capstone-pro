@@ -1,17 +1,20 @@
-import { createUserDocFromAuth, signInWithPrompt } from "../../firebase/firebase.utils"
+import { SignUpForm } from "../../components";
+import FireBaseUtils from "../../firebase/firebase.utils"
 
 function LoginPage() {
     const loginUserWithGoogle = async () => {
-        const res = await signInWithPrompt();
-        createUserDocFromAuth(res.user)
+        const res = await FireBaseUtils.signInWithPrompt();
+        FireBaseUtils.createUserDocFromAuth(res.user)
     }
 
     return (
         <div>
             <h1>LOGIN PAGE</h1>
             <button onClick={loginUserWithGoogle}>
-                Login Now
+                Login With Popup
             </button>
+
+            <SignUpForm />
         </div>
     )
 }

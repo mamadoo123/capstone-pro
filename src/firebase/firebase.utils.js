@@ -2,8 +2,8 @@ import { initializeApp } from "firebase/app";
 import {
     getAuth, 
     GoogleAuthProvider, 
-    signInWithPopup, 
-    signInWithRedirect
+    signInWithPopup,
+    createUserWithEmailAndPassword
 } from "firebase/auth"
 
 import {
@@ -28,18 +28,18 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // create a provider
-const provider = new GoogleAuthProvider();
-provider.setCustomParameters({
+const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({
     prompt: 'select_account'
 });
 
-export const auth = getAuth();
+const auth = getAuth();
 
-export const signInWithPrompt = () => signInWithPopup(auth, provider);
+const signInWithPrompt = () => signInWithPopup(auth, googleProvider);
 
-export const db = getFirestore()
+const db = getFirestore()
 
-export const createUserDocFromAuth = async (userAuth) => {
+const createUserDocFromAuth = async (userAuth, additionalInfo) => {
     const docRef = doc(db, 'users', userAuth.uid);
     const userDocSnapshot = await getDoc(docRef);
     const userExists = userDocSnapshot.exists();
@@ -49,7 +49,12 @@ export const createUserDocFromAuth = async (userAuth) => {
         const {email, displayName} = userAuth;
         const createdAt = new Date();
         try {
-            await setDoc(docRef, { email, displayName, createdAt })
+            await setDoc(docRef, { 
+                email, 
+                displayName, 
+                createdAt, 
+                ...additionalInfo 
+            })
         } catch (error) {
             console.log("error login ", error.message)
         }
@@ -58,4 +63,15 @@ export const createUserDocFromAuth = async (userAuth) => {
     return docRef;
 }
 
+const createUserDocWithEmailAndPassword = async (email, password) => {
+    if(!email || !password) return;
+    return await createUserWithEmailAndPassword(auth, email, password)
+}
 
+export default {
+    auth,
+    signInWithPrompt,
+    db,
+    createUserDocFromAuth,
+    createUserDocWithEmailAndPassword,
+}
