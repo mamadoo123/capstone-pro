@@ -7,12 +7,7 @@ import { UserContext } from '../../../contexts/user.context';
 import firebaseUtils from '../../../firebase/firebase.utils';
 
 function NavBar() {
-    const {currentUser, setCurrentUser} = useContext(UserContext)
-    const logout = async (e) => {
-        e.preventDefault();
-        await firebaseUtils.signUserOut();
-        setCurrentUser(null);
-    }
+    const {currentUser} = useContext(UserContext)
 
     return (
         <>
@@ -28,7 +23,7 @@ function NavBar() {
                     </Link>
                     {
                         currentUser ?
-                        <span className='nav-link' onClick={logout}>logout</span>
+                        <span className='nav-link' onClick={firebaseUtils.signUserOut}>logout</span>
                         :
                         <Link to={ROUTES.INDEX+ROUTES.LOGIN} className="nav-link" >
                             login
