@@ -4,6 +4,7 @@ import NavBar from './home/nav-bar/navbar.component';
 import SignUpForm from './sign-up/sign-up-form.component';
 import SignInForm from './sign-in/sign-in-form.component';
 import Button from './button/button.component';
+import ProductCard from './product-card/product-card.component'
 
 export {
     Category,
@@ -12,4 +13,5 @@ export {
     SignUpForm,
     SignInForm,
     Button,
+    ProductCard,
 }
