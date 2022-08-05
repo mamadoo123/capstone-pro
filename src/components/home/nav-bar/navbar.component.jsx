@@ -5,9 +5,13 @@ import './navbar.styles.scss'
 import { useContext } from 'react';
 import { UserContext } from '../../../contexts/user.context';
 import firebaseUtils from '../../../firebase/firebase.utils';
+import CartIcon from '../../cart/cart-icon.component';
+import CartDropdown from '../../cart/cart-dropdown.component';
+import { CartContext } from '../../../contexts/cart.context';
 
 function NavBar() {
     const {currentUser} = useContext(UserContext)
+    const {dropdownOpen, setDropdownOpen} = useContext(CartContext);
 
     return (
         <>
@@ -29,9 +33,14 @@ function NavBar() {
                             login
                         </Link>
                     }
+
+                    <CartIcon />
                     
                 </div>
-
+            
+            {
+                dropdownOpen && <CartDropdown />
+            }
 
             </div>
 
