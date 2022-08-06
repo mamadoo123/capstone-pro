@@ -5,7 +5,6 @@ import { CartContext } from '../../contexts/cart.context';
 
 function CartIcon(){
     const {setDropdownOpen, dropdownOpen, cartQuantity} = useContext(CartContext);
-    console.log('cartQuantity ,' , cartQuantity)
 
     return(
         <div 

@@ -5,6 +5,7 @@ import SignUpForm from './sign-up/sign-up-form.component';
 import SignInForm from './sign-in/sign-in-form.component';
 import Button from './button/button.component';
 import ProductCard from './product-card/product-card.component'
+import CheckoutItem from './checkout-item/checkout-item.component';
 
 export {
     Category,
@@ -14,4 +15,5 @@ export {
     SignInForm,
     Button,
     ProductCard,
+    CheckoutItem,
 }

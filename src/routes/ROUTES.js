@@ -3,4 +3,5 @@ export default Object.freeze({
     HOME: 'home',
     SHOP: 'shope',
     LOGIN: 'login',
+    CHECKOUT: 'checkout'
 });

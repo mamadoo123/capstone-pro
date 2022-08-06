@@ -1,0 +1,42 @@
+.checkout-page-container{
+    width: 100%;
+    
+    .checkout-table{
+        width: 100%;
+
+        thead{
+            display: flex;
+            justify-content: space-around;
+            margin: 10px;
+            padding: 10px 0;
+            border-bottom: 2px solid black;
+
+            td{
+                width: 25%;
+                display: flex;
+                justify-content: center;
+                font-weight: 700;
+                font-size: 3vmin;
+            }
+        }
+
+        tbody{
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    .total-wrapper{
+        display: flex;
+        margin-top: auto;
+        width: 100%;
+        justify-content: flex-end;
+        padding-right: 24px;
+
+        span{
+            font-size: 24px;
+            font-weight: 700;
+        }
+    }
+}
+
