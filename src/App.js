@@ -7,7 +7,7 @@ function App() {
     <Routes>
       <Route path= {ROUTES.INDEX} element={<NavBar />} >
         <Route index element={<HomePage/>} />
-        <Route path={ROUTES.SHOP} element={<ShopPage />} />
+        <Route path={ROUTES.SHOP+'/*'} element={<ShopPage />} />
         <Route path={ROUTES.LOGIN} element={<LoginPage />} />
         <Route path={ROUTES.CHECKOUT} element={<CheckoutPage />} />
       </Route>

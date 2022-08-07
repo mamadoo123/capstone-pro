@@ -6,6 +6,7 @@ import SignInForm from './sign-in/sign-in-form.component';
 import Button from './button/button.component';
 import ProductCard from './product-card/product-card.component'
 import CheckoutItem from './checkout-item/checkout-item.component';
+import CategoryPreview from './category-preview/category-preview.component';
 
 export {
     Category,
@@ -16,4 +17,5 @@ export {
     Button,
     ProductCard,
     CheckoutItem,
+    CategoryPreview,
 }

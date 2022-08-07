@@ -14,8 +14,11 @@ import {
     getDoc,
     setDoc,
     getFirestore,
+    collection, // to get a collection ref (just like doc => docRef)
+    writeBatch, // to set a doc into db
+    query,
+    getDocs,
 } from "firebase/firestore";
-
 
 
 const firebaseConfig = {
@@ -29,6 +32,34 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const db = getFirestore()
+
+// Now we gonna create a method to upload the shop data into firesoter db
+const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => { // collectinKey: like users, categories and so ..
+    const collectionRef = collection(db, collectionKey) // firebase creates one if it doesn't exist
+    const batch = writeBatch(db); // returns batch object [it allows us to attach or write or delete, so on and once all completes it fires and write to db]
+    objectsToAdd.forEach(obj => {
+        const docRef = doc(collectionRef, obj.title.toLowerCase()); // collectionRef has the db from first line 
+        // obj.title.toLowerCase() === key of each object(category)
+        batch.set(docRef, obj); // add a document using its key (ref) and value will be the object itself
+    });
+
+    await batch.commit(); // DONE
+}
+
+const getCategoriesAndDocuments = async () => {
+    // first we need a collection ref
+    const collectionRef = collection(db, 'categories');
+    const q = query(collectionRef); // object to get a snapshot from
+    const querySnapshot = await getDocs(q);
+    const categoryMap = querySnapshot.docs.reduce((a, b) => {
+        const {title, items} = b.data();
+        a[title.toLowerCase()] = items;
+        return a;
+    }, {});
+
+    return categoryMap;
+}
 
 // create a provider
 const googleProvider = new GoogleAuthProvider();
@@ -46,8 +77,6 @@ const signInWithEmailAndPass = async (email, password) => {
 } 
 
 const signUserOut = async () => await signOut(auth);
-
-const db = getFirestore()
 
 const createUserDocFromAuth = async (userAuth, additionalInfo) => {
     const docRef = doc(db, 'users', userAuth.uid);
@@ -89,4 +118,6 @@ export default {
     db,
     createUserDocFromAuth,
     createUserDocWithEmailAndPassword,
+    addCollectionAndDocuments,
+    getCategoriesAndDocuments,
 }
