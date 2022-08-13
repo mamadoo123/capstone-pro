@@ -1,7 +1,7 @@
 import { useState } from "react";
 import firebaseUtils from "../../firebase/firebase.utils";
 import FormInput from "../form-input/form-input.component";
-import Button from "../button/button.component";
+import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 import './sign-in-form.styles.scss';
 
 const initialFormFields = {
@@ -83,7 +83,7 @@ function SignInForm() {
                 Sign In
             </Button>
 
-            <Button type="button" onClick={loginUserWithGoogle} buttonType='google'>
+            <Button type="button" onClick={loginUserWithGoogle} buttonType={BUTTON_TYPE_CLASSES.google}>
                 Google Sign in
             </Button>
         </div>

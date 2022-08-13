@@ -1,7 +1,7 @@
-import {Link, Outlet} from 'react-router-dom'
+import {Outlet} from 'react-router-dom'
 import ROUTES from '../../../routes/ROUTES';
 import { ReactComponent as CrwnLogo } from '../../../assets/crown.svg';
-import './navbar.styles.scss'
+import {NavLink, NavLinksContainer, NavbarContainer} from './navbar.styles.js'
 import { useContext } from 'react';
 import { UserContext } from '../../../contexts/user.context';
 import firebaseUtils from '../../../firebase/firebase.utils';
@@ -11,38 +11,38 @@ import { CartContext } from '../../../contexts/cart.context';
 
 function NavBar() {
     const {currentUser} = useContext(UserContext)
-    const {dropdownOpen, setDropdownOpen} = useContext(CartContext);
+    const {dropdownOpen} = useContext(CartContext);
 
     return (
         <>
-            <div className='navbar-container'>
-                <div className='logo-container'>
-                    <Link to={ROUTES.INDEX}>
+            <NavbarContainer>
+                <div>
+                    <NavLink to={ROUTES.INDEX}>
                         <CrwnLogo />
-                    </Link>
+                    </NavLink>
                 </div>
-                <div className='nav-links-container'>
-                    <Link to={ROUTES.INDEX+ROUTES.SHOP} className="nav-link" >
+                <NavLinksContainer>
+                    <NavLink to={ROUTES.INDEX+ROUTES.SHOP} className="nav-link" >
                         Shop
-                    </Link>
+                    </NavLink>
                     {
                         currentUser ?
-                        <span className='nav-link' onClick={firebaseUtils.signUserOut}>logout</span>
+                        <NavLink as='span' onClick={firebaseUtils.signUserOut}>logout</NavLink>
                         :
-                        <Link to={ROUTES.INDEX+ROUTES.LOGIN} className="nav-link" >
+                        <NavLink to={ROUTES.INDEX+ROUTES.LOGIN} >
                             login
-                        </Link>
+                        </NavLink>
                     }
 
                     <CartIcon />
                     
-                </div>
+                </NavLinksContainer>
             
             {
                 dropdownOpen && <CartDropdown />
             }
 
-            </div>
+            </NavbarContainer>
 
             <Outlet />
         </>
