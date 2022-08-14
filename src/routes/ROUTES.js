@@ -1,7 +1,7 @@
 export default Object.freeze({
     INDEX: '/',
     HOME: 'home',
-    SHOP: 'shope',
+    SHOP: 'shop',
     LOGIN: 'login',
     CHECKOUT: 'checkout'
 });
